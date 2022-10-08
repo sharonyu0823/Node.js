@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="info"></div>
+    <script type="module">
+        import Person from './Person_3.js'; //因為type已經告知是module 所以副檔名不用改成mjs
+
+        const p1 = new Person('Bill', 30);
+
+        info.innerText = p1.toString();
+    </script>
+
+    <!-- 前端使用es6 module要很小心 一次就只能使用一次對象 -->
+</body>
+
+</html>
