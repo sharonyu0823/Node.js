@@ -5,7 +5,7 @@ const server = http.createServer((request, response) => {
         'Content-Type': 'text/html'
     });
 
-    response.end('<h2>Hello</h2>');
+    response.end(`<h2>${request.url}</h2>`);
 });
 
 server.listen(3000);
