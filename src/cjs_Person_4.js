@@ -25,3 +25,4 @@ module.exports = {
 }; //所有東西包成一個物件做匯出
 
 // corresponding to file: module.test_4.cjs
+// 觀念:export cjs_Person_4.js的模組 import到cjs_module.test_4.js 再去複製另外一個人出來
