@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="position: fixed; top: 0">
+        <a href="javascript: a('aaa')">aaa</a>
+        <a href="javascript: a('bbb')">bbb</a>
+        <a href="javascript: a('ccc')">ccc</a>
+    </div>
+    <script>
+        function a(str) {
+            let state = {
+                data: str
+            };
+
+            let url = '';
+
+            switch (str) {
+                case 'aaa':
+                    url = '?a=1&b=2';
+                    break;
+                case 'bbb':
+                    url = '/abc/def';
+                    break;
+                case 'ccc':
+                    url = 'http://tw.yahoo.com'; //不可行
+                    break;
+            }
+
+            history.pushState(state, '', url);
+        }
+
+        window.addEventListener('popstate', function(event){
+            console.log(event);
+            console.log(event.state);
+        })
+
+    </script>
+</body>
+
+</html>
