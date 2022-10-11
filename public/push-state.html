@@ -35,12 +35,17 @@
             }
 
             history.pushState(state, '', url);
+            // 記錄歷史記錄
+            // history.pushState() has been used to add a history entry to the history stack, that history entry is used instead.
         }
 
-        window.addEventListener('popstate', function(event){
+        window.addEventListener('popstate', function (event) {
             console.log(event);
             console.log(event.state);
         })
+        // 當活動歷史記錄條目更改時，將觸發popstate事件。
+        // 原文網址：https://kknews.cc/code/mnnzzqg.html
+
 
     </script>
 </body>
