@@ -1,5 +1,7 @@
 require('dotenv').config();
 const express = require('express');
+const multer = require('multer');
+const upload = multer({ dest: 'tmp_upload/' }); //一定要有這個資料夾
 
 const app = express();
 
@@ -21,6 +23,8 @@ app.get('/sale-json', (req, res) => {
     const sales = require(__dirname + '/data/sales');
     console.log(sales);
     res.render('sale-json', { sales });
+    console.log({ sales });
+
 });
 
 app.get('/json_test', (req, res) => {
@@ -38,11 +42,16 @@ app.post('/try-post', (req, res) => {
 });
 
 app.get('/try-post-form', (req, res) => {
-    res.render('try-post-form');
+    res.render('try-post-form'); //get會拿到表單
 });
 
 app.post('/try-post-form', (req, res) => {
     res.render('try-post-form', req.body);
+}); //post會呈現資料
+
+// 只上傳單一檔案
+app.post('/try-upload', upload.single('avatar'), (req, res) => {
+    res.json(req.file);
 });
 
 // 前面擋到了 所以就放到
