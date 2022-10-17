@@ -1,1 +1,3 @@
 node_modules
+
+public/uploads/* //僅會讓資料夾會存在

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .photo {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            /* border: 1px solid blue; */
+
+        }
+
+        .photo img {
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="form1" action="">
+        <input type="file" accept="image/*" id="myi" name="photos" multiple onchange="upload()">
+    </form>
+    <div id="photo-div">
+        <!-- <div class="photo">
+            <img src="" alt="">
+        </div> -->
+    </div>
+
+    <script>
+        const item_tpl_func = ({ filename }) => {
+            return `
+            <div class="photo">
+            <img src="/uploads/${filename}" alt="">
+            </div>
+            `;
+        }
+        // const item_tpl_func 本身就是一個function
+        // item_tpl_func(obj) 變數item_tpl_func呼叫上面function 然後把obj傳進去
+
+        async function upload() {
+            const fd = new FormData(document.form1);
+
+            const r = await fetch('/try-upload3', {
+                method: 'POST',
+                body: fd,
+            })
+            const result = await r.json();
+            console.log(result);
+
+            let str = ''; //str在外面是因為要在foreach之外去使用這個變數
+
+            if (result && result.length) {
+                // for (let i = 0, max = result.length; i < max; i++) {
+                //     console.log(result[i]);
+                // }; 
+                result.forEach(obj => {
+                    // result他本身就是一個array 然後用foreach把它印出來
+                    console.log(obj);
+                    str += item_tpl_func(obj);
+                    // 把字串串起來
+                });
+
+                console.log(str);
+                // element就等於obj 所以拿到會是一個字串
+
+                //for and foreach最大的差別就是
+                //for要去計算 foreach不用
+
+            }
+
+            document.querySelector('#photo-div').innerHTML = str;
+        }
+    </script>
+</body>
+
+</html>

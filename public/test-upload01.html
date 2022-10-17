@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="" alt="" id="myimg" style="width: 300;">
+    <input type="file" accept="image/" id="myi" onchange="upload()">
+
+    <script>
+        async function upload() {
+            //沒有form 可以用這樣的方式寫新的formdata 然後把檔案加進去
+            const fd = new FormData();
+            const myi = document.querySelector('#myi');
+            fd.append('avatar', myi.files[0]);
+            // 欄位叫avatar
+            // myi.files[0] myi拿到的第一個欄位
+
+            const r = await fetch('try-upload2', {
+                method: 'POST',
+                body: fd,
+            })
+            const result = await r.json();
+            console.log(result);
+            myimg.src = '/uploads/' + result.filename; //秀出圖片
+
+        }
+
+        // for example: console.log(result);
+        // destination: "F:\\2022 備份\\JS_2022\\11. Node.js\\node_SY\\modules/../public/uploads/"
+        // encoding: "7bit"
+        // fieldname: "avatar"
+        // filename: "a996747a-b815-4171-ae0f-4e4703f49faf.png"
+        // mimetype: "image/png"
+        // originalname: "ã¢ã¼ãã§ãªã¼ãããå­.png"
+        // path: "F:\\2022 備份\\JS_2022\\11. Node.js\\node_SY\\public\\uploads\\a996747a-b815-4171-ae0f-4e4703f49faf.png"
+        // size: 3328
+    </script>
+</body>
+
+</html>

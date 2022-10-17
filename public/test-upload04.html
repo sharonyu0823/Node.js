@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        .photo {
+            display: inline-block;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            /* border: 1px solid blue; */
+
+        }
+
+        .photo img {
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="form1" action="">
+        <input type="file" accept="image/*" id="myi" name="photos" multiple onchange="upload()">
+    </form>
+    <div id="photo-div">
+        <!-- <div class="photo">
+            <img src="" alt="">
+        </div> -->
+    </div>
+
+    <script>
+        const item_tpl_func = ({ filename }) => {
+            return `
+            <div class="photo">
+            <img src="/uploads/${filename}" alt="">
+            </div>
+            `;
+        }
+
+        async function upload() {
+            const fd = new FormData(document.form1);
+
+            const r = await fetch('/try-upload3', {
+                method: 'POST',
+                body: fd,
+            })
+            const result = await r.json();
+            console.log(result);
+
+            let str = '';
+
+            if (result && result.length) {
+                str = result.map(obj => item_tpl_func(obj)).join('');
+
+                // 會拿到一個陣列 所以就把他接起來
+            }
+
+            document.querySelector('#photo-div').innerHTML = str;
+        }
+    </script>
+</body>
+
+</html>
